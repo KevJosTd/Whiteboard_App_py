@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter.colorchooser import askcolor
 
-# defines a function named start_drawing that takes an event as its parameter
+# Define una función llamada named start_drawing que recibe como parametro un evento (event)
 # In GUI programming, events are actions that trigger specific functions when they happen
 def start_drawing(event):
     #global variables
@@ -47,7 +47,7 @@ def change_line_width(value):
     line_width = int(value)
 
 
-######## Create Window 
+######## Crear Ventana 
 # Crea la ventana principal de la aplicación
 root = tk.Tk()
 # Establece el titulo de la ventada de la aplicación
