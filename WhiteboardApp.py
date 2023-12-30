@@ -37,6 +37,11 @@ def change_pen_color():
     if color:
         drawing_color = color
 
+def change_background_color(canvas):
+    color = askcolor()[1]
+    if color:
+        canvas.config(bg = color)
+
 def change_line_width(value):
     global line_width
     line_width = int(value)
@@ -46,7 +51,7 @@ def change_line_width(value):
 # Crea la ventana principal de la aplicación
 root = tk.Tk()
 # Establece el titulo de la ventada de la aplicación
-root.title("Whiteboard APP")
+root.title("Whiteboard App")
 # Crea un lienzo de dibujo dentro de la ventana principal. El lienzo es un área rectangular y se inicia con el color blanco
 canvas = tk.Canvas(root, bg= "black")
 #Configura el lienzo para llenar el espacio horizontal y vertical y permite que el lienzo se expanda y ocupe toda la ventana
@@ -67,22 +72,28 @@ controls_frame = tk.Frame(root)
 controls_frame.pack(side = "top", fill = "x")
 
 #Crear dos botones y asignarles posiciones fijas en la pantalla
-color_button = tk.Button(controls_frame, text = "Change Color", command = change_pen_color)
+bg_color_button = tk.Button(controls_frame, text = "Change Background Color", command = lambda: change_background_color(canvas))
+color_button = tk.Button(controls_frame, text = "Change Line Color", command = change_pen_color)
 clear_button = tk.Button(controls_frame, text = "Clear", command = lambda: canvas.delete("all"))
 
 #Asignamos la posición y el tamaño de los botones
+bg_color_button.pack(side = "left", padx= 5, pady = 5)
 color_button.pack(side = "left", padx = 5, pady = 5)
 clear_button.pack(side = "left", padx= 5, pady = 5)
 
 ####### Crear un control deslizante para la función ancho de línea
-
+#Crea un label con la etiqueta Line Width
 line_width_label = tk.Label(controls_frame, text = "Line Width")
+#Asigna la posición y el tamaño del label
 line_width_label.pack(side = "left", padx = 5, pady = 5)
-
+#Crea un control deslizante horizontal que permite elegir el ancho de línea. Valor mínimo de 1 y maximo de 10
 line_width_slider = tk.Scale(controls_frame, from_ = 1, to = 10, orient = "horizontal", command = lambda val: change_line_width(val))
+#Establece la posición inicial del control deslizante
 line_width_slider.set(line_width)
+#Asigna la posición y el tamaño del control deslizante
 line_width_slider.pack(side = "left", padx = 5, pady = 5)
 
+####### Conectar las funciones con el GUI
 #Cuando el botón izquierdo del mouse es oprimido desencadena la función start_drawing
 canvas.bind("<Button-1>", start_drawing)
 #Mientras se mantiene presionada el botón izquierdo del mouse y se mueve el mouse sobre el lienzo,
